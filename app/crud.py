@@ -4,6 +4,8 @@ from bson.objectid import ObjectId
 from datetime import datetime
 from typing import List
 
+
+
 async def get_document_by_id(id: str) -> dict:
     document = await document_collection.find_one({"_id": ObjectId(id)})
     if document:
