@@ -12,6 +12,7 @@ CLIENTE_API_URL = "http://34.170.157.181:8080/cliente/"
 async def create_documento(documento: DocumentoCreate):
     try:
         response = requests.get(f"{CLIENTE_API_URL}{documento.cliente_id}/")
+        print(f"{CLIENTE_API_URL}{documento.cliente_id}/")
         print(response)
         if response.status_code != 200:
             raise HTTPException(status_code=404, detail="Cliente not found")
