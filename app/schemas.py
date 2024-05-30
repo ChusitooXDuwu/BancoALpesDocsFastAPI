@@ -13,15 +13,8 @@ class DocumentoCreate(DocumentoBase):
     pass
 
 class Documento(DocumentoBase):
-    id: int
+    id: Optional[str]
     fecha_subida: datetime
-
-    class Config:
-        orm_mode = True
-
-class Cliente(BaseModel):
-    id: int
-    nombre: str
 
     class Config:
         orm_mode = True
