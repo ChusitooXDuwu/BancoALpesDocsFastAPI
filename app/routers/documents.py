@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, Depends
-from ..crud import get_documento, get_documentos, create_documento, delete_all_documentos, delete_documento
+from ..crud import get_documento, get_documentos, create_document, delete_all_documentos, delete_documento
 from ..schemas import Documento, DocumentoCreate
 from typing import List
 
@@ -20,7 +20,7 @@ async def read_documento(documento_id: str):
 @router.post("/documentos/", response_model=Documento)
 async def create_documento(documento: DocumentoCreate):
     try:
-        return await create_documento(documento)
+        return await create_document(documento)
     except Exception as e:
         print(f"Error creating document: {e}")
         raise HTTPException(status_code=500, detail=str(e))

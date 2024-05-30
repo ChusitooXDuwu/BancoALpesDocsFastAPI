@@ -15,7 +15,7 @@ async def get_documentos(skip: int = 0, limit: int = 10) -> List[dict]:
         documents.append(document_helper(document))
     return documents
 
-async def create_documento(document: DocumentoCreate) -> dict:
+async def create_document(document: DocumentoCreate) -> dict:
     document_dict = document.dict()
     document_dict["fecha_subida"] = datetime.utcnow()
     try:
