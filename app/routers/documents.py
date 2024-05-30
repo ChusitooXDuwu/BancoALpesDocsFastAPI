@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends
 from ..crud import get_document_by_id, get_all_documents, create_new_document, delete_all_documents, delete_document_by_id
 from ..schemas import Documento, DocumentoCreate
 from typing import List
+import requests
 
 router = APIRouter()
 
@@ -19,10 +20,18 @@ async def read_document_by_id(documento_id: str):
 
 @router.post("/documentos/", response_model=Documento)
 async def create_new_document_endpoint(documento: DocumentoCreate):
+    # try:
+    #     return await create_new_document(documento)
+    # except Exception as e:
+    #     print(f"Error creating document: {e}")
+    #     raise HTTPException(status_code=500, detail=str(e))
+    
     try:
+        response = requests.get(f"{CLIENTE_API_URL}{documento.cliente_id}/")
+        if response.status_code != 200:
+            raise HTTPException(status_code=404, detail="Cliente not found")
         return await create_new_document(documento)
     except Exception as e:
-        print(f"Error creating document: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.delete("/documentos/{documento_id}", response_model=dict)
