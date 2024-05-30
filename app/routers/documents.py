@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import APIRouter, HTTPException
 from ..crud import create_new_document, get_all_documents, get_document_by_id, delete_document_by_id, delete_all_documents
 from ..schemas import Documento, DocumentoCreate
