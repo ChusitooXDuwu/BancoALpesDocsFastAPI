@@ -18,9 +18,13 @@ async def get_documentos(skip: int = 0, limit: int = 10) -> List[dict]:
 async def create_documento(document: DocumentoCreate) -> dict:
     document_dict = document.dict()
     document_dict["fecha_subida"] = datetime.utcnow()
-    new_document = await document_collection.insert_one(document_dict)
-    created_document = await document_collection.find_one({"_id": new_document.inserted_id})
-    return document_helper(created_document)
+    try:
+        new_document = await document_collection.insert_one(document_dict)
+        created_document = await document_collection.find_one({"_id": new_document.inserted_id})
+        return document_helper(created_document)
+    except Exception as e:
+        print(f"Error creating document: {e}")
+        raise
 
 async def delete_all_documentos() -> int:
     result = await document_collection.delete_many({})

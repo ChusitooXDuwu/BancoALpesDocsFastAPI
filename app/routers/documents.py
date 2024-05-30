@@ -19,7 +19,11 @@ async def read_documento(documento_id: str):
 
 @router.post("/documentos/", response_model=Documento)
 async def create_documento(documento: DocumentoCreate):
-    return await create_documento(documento)
+    try:
+        return await create_documento(documento)
+    except Exception as e:
+        print(f"Error creating document: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 @router.delete("/documentos/{documento_id}", response_model=dict)
 async def delete_documento(documento_id: str):
