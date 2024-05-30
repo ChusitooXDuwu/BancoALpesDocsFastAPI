@@ -36,6 +36,11 @@ async def read_document_by_id(documento_id: str):
         raise HTTPException(status_code=404, detail="Documento not found")
     return document
 
+#create health 
+@router.get("/health")
+async def health_check():
+    return {"status": "ok"}
+
 @router.delete("/documentos/{documento_id}", response_model=dict)
 async def delete_document_by_id_endpoint(documento_id: str):
     if not await delete_document_by_id(documento_id):
